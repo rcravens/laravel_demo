@@ -5,6 +5,7 @@ namespace App\Jobs;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Foundation\Inspiring;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
@@ -25,6 +26,6 @@ class InspireJob implements ShouldQueue
      */
     public function handle(): void
     {
-        sleep(15);
+        Inspiring::quote();
     }
 }
