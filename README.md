@@ -2,8 +2,6 @@
 
 <p align="center">
 [![php artisan test](https://github.com/rcravens/laravel_demo/actions/workflows/php_artisan_test.yml/badge.svg)](https://github.com/rcravens/laravel_demo/actions/workflows/php_artisan_test.yml)
-[![simple_deploy](https://github.com/rcravens/laravel_demo/actions/workflows/simple_deploy.yml/badge.svg)](https://github.com/rcravens/laravel_demo/actions/workflows/simple_deploy.yml)
-[![simple_deploy_with_built_in_ssh](https://github.com/rcravens/laravel_demo/actions/workflows/simple_deploy_with_ssh.yml/badge.svg)](https://github.com/rcravens/laravel_demo/actions/workflows/simple_deploy_with_ssh.yml)
 </p>
 
 <p align="center">
