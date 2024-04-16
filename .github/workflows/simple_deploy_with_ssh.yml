@@ -22,4 +22,4 @@ jobs:
           SSH_KEY: ${{ secrets.PRIVATE_KEY }}
 
       - name: Deploy
-        run: ssh demo_1 'source ~/.bash_aliases; deploy;'
+        run: ssh demo_1 'cat ~/.bash_aliases; source ~/.bash_aliases; deploy;'
