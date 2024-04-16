@@ -1,6 +1,5 @@
 name: simple_deploy_with_built_in_ssh
-on:
-  workflow_dispatch
+on: [ push, pull_request ]
 jobs:
   deploy:
     name: Deploy to Demo 1
