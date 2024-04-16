@@ -13,4 +13,4 @@ jobs:
           port: 22
           username: demo_1
           key: ${{secrets.PRIVATE_KEY}}
-          script: "pwd"
+          script: "/usr/local/bin/devops/deploy/deploy.sh"
