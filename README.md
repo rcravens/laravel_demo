@@ -1,6 +1,8 @@
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-[![Actions Status](https://github.com/rcravens/laravel_demo/workflows/php artisan test/badge.svg)](https://github.com/rcravens/laravel_demo/actions)
+[PHP Artisan Test](https://github.com/rcravens/laravel_demo/workflows/php_artisan_test.yml/badge.svg)
+[Simple Deploy](https://github.com/rcravens/laravel_demo/workflows/simple_deploy.yml/badge.svg)
+[Simple Deploy with SSH](https://github.com/rcravens/laravel_demo/workflows/simple_deploy_with_ssh.yml/badge.svg)
 
 <p align="center">
 <a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
