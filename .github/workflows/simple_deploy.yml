@@ -7,10 +7,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy
-        uses: appleboy/ssh-action@v0.1.8
+        uses: appleboy/ssh-action@master
         with:
           host: 54.234.109.36
           port: 22
           username: demo_1
           key: ${{secrets.PRIVATE_KEY}}
-          script: "/usr/local/bin/devops/deploy/deploy.sh"
+          script: |
+            source ~/.bashrc
+            deploy
