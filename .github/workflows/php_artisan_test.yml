@@ -7,7 +7,7 @@ jobs:
 
     services:
       mysql:
-        image: mysql:8.3
+        image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: secret
           MYSQL_DATABASE: test
@@ -31,7 +31,7 @@ jobs:
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1
+          php-version: 8.3
 
       - name: Install composer dependencies
         run: |
