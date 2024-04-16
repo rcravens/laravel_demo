@@ -1,0 +1,16 @@
+name: simple_deploy
+on:
+  workflow_dispatch:
+jobs:
+  deploy:
+    name: Deploy to Demo 1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: 54.234.109.36
+          port: 22
+          username: demo_1
+          key: ${{secrets.PRIVATE_KEY}}
+          script: "deploy"
