@@ -12,7 +12,7 @@ jobs:
           echo "$SSH_KEY" > ~/.ssh/demo_1.key
           chmod 600 ~/.ssh/demo_1.key
           cat >>~/.ssh/config <<END
-            Host staging
+            Host demo_1
             HostName 54.234.109.36
             User demo_1
             IdentityFile ~/.ssh/demo_1.key
