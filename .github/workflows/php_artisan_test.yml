@@ -43,5 +43,11 @@ jobs:
           php artisan key:generate
           php artisan migrate
 
+      - name: Install NPM dependencies
+        run: npm install
+
+      - name: Compile assets
+        run: npm run build
+
       - name: Run Test suite
         run: php artisan test
