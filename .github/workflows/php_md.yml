@@ -17,7 +17,9 @@
 # More details at https://phpmd.org/
 
 name: php_md
-on: [ push, pull_request ]
+#on: [ push, pull_request ]
+on:
+  workflow_dispatch:
 
 permissions:
   contents: read

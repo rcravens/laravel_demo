@@ -1,5 +1,9 @@
 name: deploy_and_sign
-on: [ push, pull_request ]
+
+#on: [ push, pull_request ]
+on:
+  workflow_dispatch:
+
 jobs:
   deploy:
     name: Deploy to Demo 1
