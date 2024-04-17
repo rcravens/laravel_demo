@@ -16,8 +16,12 @@ jobs:
     name: Test Job 2
     runs-on: ubuntu-latest
     steps:
-      - name: Step 3 (ls -la /)
-        run: ls -la /
+      - name: Step 3 (run multiple lines)
+        run: |
+          ls -la /
+          ls -la /home/runner/work
+          ls -la /home/runner/work/laravel_demo
+          ls -la /home/runner/work/laravel_demo/laravel_demo
 
       - name: Step 4 (whoami)
         run: whoami
@@ -26,8 +30,10 @@ jobs:
     name: Test Job 3
     runs-on: ubuntu-latest
     steps:
-      - name: Step 5 (run multiple lines)
+      - name: Step 5 (can i install things)
+        # https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners/about-github-hosted-runners
         run: |
+          sudo apt update
           sudo apt install nginx
           sudo systemctl start nginx
           sudo systemctl status nginx
