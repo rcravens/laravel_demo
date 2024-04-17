@@ -4,6 +4,11 @@
 [![simple_deploy](https://github.com/rcravens/laravel_demo/actions/workflows/simple_deploy.yml/badge.svg)](https://github.com/rcravens/laravel_demo/actions/workflows/simple_deploy.yml)
 [![simple_deploy_with_built_in_ssh](https://github.com/rcravens/laravel_demo/actions/workflows/simple_deploy_with_ssh.yml/badge.svg)](https://github.com/rcravens/laravel_demo/actions/workflows/simple_deploy_with_ssh.yml)
 
+<p align="center">
+    <a href="https://github.com/rcravens/laravel_demo/actions/workflows/php_artisan_test.yml"><img src="https://github.com/rcravens/laravel_demo/actions/workflows/php_artisan_test.yml/badge.svg" alt="php artisan test" style="max-width: 100%;"></a>
+    <a href="https://github.com/rcravens/laravel_demo/actions/workflows/simple_deploy.yml"><img src="https://github.com/rcravens/laravel_demo/actions/workflows/simple_deploy.yml/badge.svg" alt="simple_deploy" style="max-width: 100%;"></a>
+    <a href="https://github.com/rcravens/laravel_demo/actions/workflows/simple_deploy_with_ssh.yml"><img src="https://github.com/rcravens/laravel_demo/actions/workflows/simple_deploy_with_ssh.yml/badge.svg" alt="simple_deploy_with_built_in_ssh" style="max-width: 100%;"></a>
+</p>
 
 <p align="center">
 <a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
