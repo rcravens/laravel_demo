@@ -2,9 +2,12 @@
 
 use App\Demo\Utilities\IntegrityChecker;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Log\Logger;
 use Illuminate\Support\Facades\Route;
 
 Route::get( '/', function () {
+
+    Logger::info( 'Running integrity checker' );
 
     $integrity_checker = new IntegrityChecker( realpath( app_path() . '/..' ) );
 
