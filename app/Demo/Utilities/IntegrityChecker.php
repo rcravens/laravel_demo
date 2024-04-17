@@ -13,19 +13,13 @@ class IntegrityChecker
         'bootstrap',
         'database',
         'node_modules',
-        'public/app',
-        'public/libs',
-        'public/theme',
         'public/index.php',
         'resources',
         'vendor',
         'artisan',
         'composer.json',
         'composer.lock',
-        'gulpfile.js',
         'package.json',
-        'server.php',
-        'public/socket_io/socket.js'
     ];
 
     public function __construct( $directory )
