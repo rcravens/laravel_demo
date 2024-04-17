@@ -1,0 +1,49 @@
+name: 03_test
+on:
+  workflow_dispatch:
+jobs:
+  test_job_1:
+    name: Test Job 1
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step 1 (pwd)
+        run: pwd
+
+      - name: Step 2 (lsb_release -a)
+        run: lsb_release -a
+
+  test_job_2:
+    name: Test Job 2
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step 3 (ls -la /)
+        run: ls -la /
+
+      - name: Step 4 (whoami)
+        run: whoami
+
+  test_job_3:
+    name: Test Job 3
+    needs: [ test_job_1, test_job_2 ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step 5 (run multiple lines)
+        run: |
+          sudo apt install nginx
+          sudo systemctl start nginx
+          sudo systemctl status nginx
+
+      - name: Step 6 (run something that fails but with continue flag set)
+        run: some command that does not exist
+        continue-on-error: true
+
+  test_job_4:
+    name: Test Job 4
+    needs: [ test_job_3 ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step 7 (run something that fails but with continue flag NOT set)
+        run: some command that does not exist
+
+      - name: Step 8 (should never be reached)
+        run: echo "HELLO!"
