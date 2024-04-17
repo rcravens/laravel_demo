@@ -15,4 +15,10 @@ jobs:
       - name: Step 3 (ls -la /)
         run: ls -la /
 
+      - name: Step 4 (whoami)
+        run: whoami
+
+      - name: Step 5 (sudo apt install nginx)
+        run: sudo apt install nginx
+
 
