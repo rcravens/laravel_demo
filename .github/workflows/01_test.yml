@@ -12,14 +12,53 @@ jobs:
       - name: Step 2 (lsb_release -a)
         run: lsb_release -a
 
-      - name: Step 3 (ls -la /)
-        run: ls -la /
+      - name: Step 3 (run multiple lines)
+        # https://docs.github.com/en/actions/learn-github-actions/contexts#github-context
+        run: |
+          ls -la /
+          ls -la /home/runner/work
+          ls -la /home/runner/work/laravel_demo
+          ls -la /home/runner/work/laravel_demo/laravel_demo
+          echo ${{ github.action }}
+          echo ${{ github.action_path }}
+          echo ${{ github.action_ref }}
+          echo ${{ github.action_repository }}
+          echo ${{ github.action_status }}
+          echo ${{ github.actor }}
+          echo ${{ github.actor_id }}
+          echo ${{ github.api_url }}
+          echo ${{ github.env }}
+          echo ${{ github.event_name }}
+          echo ${{ github.event_path }}
+          echo ${{ github.graphql_url }}
+          echo ${{ github.head_ref }}
+          echo ${{ github.job }}
+          echo ${{ github.path }}
+          echo ${{ github.ref }}
+          echo ${{ github.ref_name }}
+          echo ${{ github.ref_type }}
+          echo ${{ github.repository_owner }}
+          echo ${{ github.repository_owner_id }}
+          echo ${{ github.repositoryUrl }}
+          echo ${{ github.retention_days }}
+          echo ${{ github.run_id }}
+          echo ${{ github.run_number }}
+          echo ${{ github.run_number }}
+          echo ${{ github.secret_source }}
+          echo ${{ github.sha }}
+          echo ${{ github.token }}
+          echo ${{ github.triggering_actor }}
+          echo ${{ github.workflow }}
+          echo ${{ github.workflow_sha }}
+          echo ${{ github.workspace }}
 
       - name: Step 4 (whoami)
         run: whoami
 
-      - name: Step 5 (run multiple lines)
+      - name: Step 5 (can i install things)
+        # https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners/about-github-hosted-runners
         run: |
+          sudo apt update
           sudo apt install nginx
           sudo systemctl start nginx
           sudo systemctl status nginx

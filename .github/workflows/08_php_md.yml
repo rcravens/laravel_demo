@@ -34,9 +34,11 @@ jobs:
       actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
 
     steps:
+      # https://github.com/actions/checkout
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # https://github.com/shivammathur/setup-php
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -48,6 +50,8 @@ jobs:
         run: phpmd . sarif codesize --reportfile phpmd-results.sarif
         continue-on-error: true
 
+      # https://github.com/github/codeql-action
+      # https://docs.github.com/en/code-security/code-scanning/introduction-to-code-scanning/about-code-scanning
       - name: Upload analysis results to GitHub
         uses: github/codeql-action/upload-sarif@v3
         with:
