@@ -25,4 +25,4 @@ jobs:
         run: ssh demo_1 '/usr/local/bin/devops/deploy/deploy.sh'
 
       - name: Sign The Code
-        run: ssh demo_1 'php artisan app:sign-code'
+        run: ssh demo_1 'cd ~/deployments/current && php artisan app:sign-code'
