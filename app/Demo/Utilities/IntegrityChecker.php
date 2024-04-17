@@ -92,6 +92,11 @@ class IntegrityChecker
 
     public function isOkay()
     {
+        if ( ! file_exists( $this->hash_data_file ) )
+        {
+            return false;
+        }
+
         $ic_results = $this->results();
         if ( ! is_null( $ic_results ) )
         {
