@@ -18,7 +18,18 @@ jobs:
       - name: Step 4 (whoami)
         run: whoami
 
-      - name: Step 5 (sudo apt install nginx)
-        run: sudo apt install nginx
+      - name: Step 5 (run multiple lines)
+        run: |
+          sudo apt install nginx
+          sudo systemctl start nginx
+          sudo systemctl status nginx
 
+      - name: Step 6 (run something that fails but with continue flag set)
+        run: some command that does not exist
+        continue-on-error: true
 
+      - name: Step 7 (run something that fails but with continue flag NOT set)
+        run: some command that does not exist
+
+      - name: Step 8 (should never be reached)
+        run: echo "HELLO!"
