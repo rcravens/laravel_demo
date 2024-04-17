@@ -8,7 +8,7 @@ Route::get( '/', function () {
 
     $integrity_checker = new IntegrityChecker( realpath( app_path() . '/..' ) );
 
-    $integrity_checker->sign();
+    $integrity_checker->verify();
 
     $is_integrity_okay = $integrity_checker->isOkay();
 
