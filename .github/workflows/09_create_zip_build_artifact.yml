@@ -6,16 +6,6 @@ jobs:
   test_and_create_zip:
     runs-on: ubuntu-latest
 
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_ROOT_PASSWORD: secret
-          MYSQL_DATABASE: test
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-
     steps:
       - uses: actions/checkout@v4
         with:
@@ -40,7 +30,6 @@ jobs:
 
       - name: Prepare Laravel Application
         run: |
-          cp .env.ci .env
           php artisan key:generate
           php artisan migrate
 
@@ -56,4 +45,6 @@ jobs:
           git_short_sha=${GITHUB_SHA::7}
           version="$date_string-$git_short_sha"
           echo $version
+          mkdir -p dist
+          zip -9 -rq dist/$version.zip . -x \*.git\* -x \*.github\* -x public/app/mocks\* -x bin/template_creator/*.tar -x node_modules/laravel-elixir\*
 
