@@ -35,18 +35,21 @@ jobs:
         run: npm run build
 
       - name: Create zip file
+        id: create_zip_file
         run: |
           date_string=$(date +"%Y-%m-%d-%H-%M-%S")
           git_short_sha=${GITHUB_SHA::7}
           version="$date_string-$git_short_sha"
+          zip_file_name="$version.zip"
+          echo "version=$version" >> $GITHUB_OUTPUT
+          echo "zip_file_name=$zip_file_name" >> $GITHUB_OUTPUT
           echo $version
           mkdir -p dist
-          zip -9 -rq dist/$version.zip . -x \*.git\* -x \*.github\* -x public/app/mocks\* -x bin/template_creator/*.tar -x node_modules/laravel-elixir\*
+          zip -9 -rq dist/$zip_file_name . -x \*.git\* -x \*.github\* -x public/app/mocks\* -x bin/template_creator/*.tar -x node_modules/laravel-elixir\*
 
       - name: Archive production artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: dist-without-markdown
+          name: ${{ steps.create_zip_file.outputs.version }}
           path: |
             dist
-            !dist/**/*.md
