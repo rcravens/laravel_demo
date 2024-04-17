@@ -51,31 +51,53 @@ class IntegrityChecker
         return true;
     }
 
-    public function verify()
+    public function verify( $force = false )
     {
-        $this->createMd5DeepInputFile();
-
-        $output = [];
-        exec( 'md5deep -r -f ' . $this->hash_input_file . ' -x ' . $this->hash_data_file, $output );
-
-        $files = [];
-        foreach ( $output as $file )
+        $is_reverification_needed = $force;
+        if ( ! file_exists( $this->hash_result_file ) )
         {
-            $files[] = str_replace( $this->directory . '/', '', $file );
+            $is_reverification_needed = true;
+        }
+        else
+        {
+            $last_modified_ts                = filemtime( $this->hash_result_file );
+            $last_modified_at                = Carbon::parse( $last_modified_ts );
+            $now                             = Carbon::now();
+            $num_minutes_since_last_verified = $last_modified_at->diffInMinutes( $now );
+            if ( $num_minutes_since_last_verified > 10 )
+            {
+                $is_reverification_needed = true;
+            }
         }
 
-        $result = [
-            'timestamp'     => date( 'm/d/Y h:i:s a', time() ),
-            'changed_files' => $files
-        ];
-
-        if ( file_exists( $this->hash_result_file ) )
+        if ( $is_reverification_needed )
         {
-            unlink( $this->hash_result_file );
-        }
-        file_put_contents( $this->hash_result_file, json_encode( $result ) );
+            $this->createMd5DeepInputFile();
 
-        return count( $output ) == 0;
+            $output = [];
+            exec( 'md5deep -r -f ' . $this->hash_input_file . ' -x ' . $this->hash_data_file, $output );
+
+            $files = [];
+            foreach ( $output as $file )
+            {
+                $files[] = str_replace( $this->directory . '/', '', $file );
+            }
+
+            $result = [
+                'timestamp'     => date( 'm/d/Y h:i:s a', time() ),
+                'changed_files' => $files
+            ];
+
+            if ( file_exists( $this->hash_result_file ) )
+            {
+                unlink( $this->hash_result_file );
+            }
+            file_put_contents( $this->hash_result_file, json_encode( $result ) );
+
+            return count( $output ) == 0;
+        }
+
+        return 0;
     }
 
     public function results()
