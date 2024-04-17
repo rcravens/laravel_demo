@@ -28,10 +28,6 @@ jobs:
         run: |
           composer install --no-scripts
 
-      - name: Prepare Laravel Application
-        run: |
-          php artisan migrate
-
       - name: Install NPM dependencies
         run: npm install
 
@@ -47,3 +43,10 @@ jobs:
           mkdir -p dist
           zip -9 -rq dist/$version.zip . -x \*.git\* -x \*.github\* -x public/app/mocks\* -x bin/template_creator/*.tar -x node_modules/laravel-elixir\*
 
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-without-markdown
+          path: |
+            dist
+            !dist/**/*.md
