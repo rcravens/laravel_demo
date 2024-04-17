@@ -30,7 +30,6 @@ jobs:
 
       - name: Prepare Laravel Application
         run: |
-          php artisan key:generate
           php artisan migrate
 
       - name: Install NPM dependencies
