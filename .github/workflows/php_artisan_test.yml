@@ -1,4 +1,4 @@
-name: php artisan test
+name: php_artisan_test
 on: [ push, pull_request ]
 
 jobs:
