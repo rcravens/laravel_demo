@@ -43,7 +43,7 @@ jobs:
           echo ${{ github.retention_days }}
           echo ${{ github.run_id }}
           echo ${{ github.run_number }}
-          echo ${{ github.run_number }}
+          echo ${{ github.run_attempt }}
           echo ${{ github.secret_source }}
           echo ${{ github.sha }}
           echo ${{ github.token }}
