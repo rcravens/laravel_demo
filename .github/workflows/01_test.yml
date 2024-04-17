@@ -6,10 +6,13 @@ jobs:
     name: Test Job 1
     runs-on: ubuntu-latest
     steps:
-      - name: Step 1 (PWD)
+      - name: Step 1 (pwd)
         run: pwd
 
-      - name: Step 2 (LS)
-        run: ls -l
+      - name: Step 2 (lsb_release -a)
+        run: lsb_release -a
+
+      - name: Step 3 (ls -la /)
+        run: ls -la /
 
 
