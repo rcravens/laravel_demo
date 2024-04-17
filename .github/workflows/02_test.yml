@@ -40,7 +40,6 @@ jobs:
     name: Test Job 4
     runs-on: ubuntu-latest
     steps:
-
       - name: Step 7 (run something that fails but with continue flag NOT set)
         run: some command that does not exist
 
