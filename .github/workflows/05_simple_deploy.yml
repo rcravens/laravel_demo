@@ -1,6 +1,6 @@
 # https://github.com/appleboy/ssh-action
 
-name: simple_deploy
+name: 05_simple_deploy
 on:
   workflow_dispatch:
 jobs:

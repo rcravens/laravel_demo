@@ -16,7 +16,7 @@
 #   Unused parameters, methods, properties
 # More details at https://phpmd.org/
 
-name: php_md
+name: 08_php_md
 #on: [ push, pull_request ]
 on:
   workflow_dispatch:
