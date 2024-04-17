@@ -17,7 +17,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Step 3 (ls -la /)
-        run: ls -la /
+        run: |
+          ls -la /
+          ls -la /home/runner/work
+          ls -la /home/runner/work/laravel_demo
+          ls -la /home/runner/work/laravel_demo/laravel_demo
 
       - name: Step 4 (whoami)
         run: whoami
