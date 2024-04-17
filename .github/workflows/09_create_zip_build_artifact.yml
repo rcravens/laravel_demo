@@ -40,7 +40,7 @@ jobs:
           date_string=$(date +"%Y-%m-%d-%H-%M-%S")
           git_short_sha=${GITHUB_SHA::7}
           version="$date_string-$git_short_sha"
-          zip_file_name="$version.zip"
+          zip_file_name="build-$version.zip"
           echo "version=$version" >> $GITHUB_OUTPUT
           echo "zip_file_name=$zip_file_name" >> $GITHUB_OUTPUT
           echo $version
