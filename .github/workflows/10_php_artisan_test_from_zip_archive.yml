@@ -28,7 +28,10 @@ jobs:
           echo "${{ github.event.inputs.zip_artifact_id }}"
           curl -H "Accept: application/vnd.github+json" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -L -o archive.zip "https://api.github.com/repos/rcravens/laravel_demo/actions/artifacts/${{ github.event.inputs.zip_artifact_id }}/zip"
           ls -la
-          unzip -o archive.zip
+          unzip archive.zip
+          ls -la
+          rm -rf archive.zip
+          unzip build*.zip
           ls -la
 
 #      # https://github.com/actions/checkout
