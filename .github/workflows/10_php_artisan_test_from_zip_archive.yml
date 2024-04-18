@@ -22,7 +22,7 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
-      - name: Echo the input
+      - name: Download and unzip the build artifact
         # https://github.com/rcravens/laravel_demo/actions/runs/8728222070/artifacts/1423549891
         run: |
           echo "${{ github.event.inputs.zip_artifact_id }}"
@@ -34,6 +34,12 @@ jobs:
           unzip -q build*.zip
           ls -la
           rm -rf build*.zip
+
+      # https://github.com/shivammathur/setup-php
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
 
       - name: Prepare Laravel Application
         run: |
