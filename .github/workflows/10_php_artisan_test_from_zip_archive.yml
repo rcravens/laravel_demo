@@ -24,7 +24,12 @@ jobs:
     steps:
       - name: Echo the input
         run: |
-          echo "${{ github.event.inputs.zip_artifact }}"
+          echo "${{ github.event.inputs.zip_artifact_download_url }}"
+          curl -o archive.zip "${{ github.event.inputs.zip_artifact_download_url }}"
+          unzip archive.zip ./
+          rm -rf archive.zip
+          ls -la
+
 
 #      # https://github.com/actions/checkout
 #      - uses: actions/checkout@v4
