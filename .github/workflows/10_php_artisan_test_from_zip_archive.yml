@@ -3,8 +3,8 @@ name: 10_php_artisan_test_from_zip_archive
 on:
   workflow_dispatch:
     inputs:
-      zip_artifact:
-        description: 'Zip Artifact ID'
+      zip_artifact_download_url:
+        description: 'Zip Artifact Download URL'
         required: true
 
 jobs:
