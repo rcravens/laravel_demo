@@ -1,0 +1,66 @@
+name: 10_php_artisan_test_from_zip_archive
+#on: [ push, pull_request ]
+on:
+  workflow_dispatch:
+    inputs:
+      zip_artifact:
+        description: 'Zip Artifact ID'
+        required: true
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: secret
+          MYSQL_DATABASE: test
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
+    steps:
+      - name: Echo the input
+        run: |
+          echo "${{ github.event.inputs.zip_artifact }}"
+
+#      # https://github.com/actions/checkout
+#      - uses: actions/checkout@v4
+#        with:
+#          fetch-depth: 1
+#
+#      # https://github.com/actions/cache
+#      - name: Cache composer dependencies
+#        uses: actions/cache@v4
+#        with:
+#          path: vendor
+#          key: composer-${{ hashFiles('**/composer.lock') }}
+#          restore-keys: |
+#            composer-
+#
+#      # https://github.com/shivammathur/setup-php
+#      - name: Install PHP
+#        uses: shivammathur/setup-php@v2
+#        with:
+#          php-version: 8.3
+#
+#      - name: Install composer dependencies
+#        run: |
+#          composer install --no-scripts
+#
+#      - name: Prepare Laravel Application
+#        run: |
+#          cp .env.ci .env
+#          php artisan key:generate
+#          php artisan migrate
+#
+#      - name: Install NPM dependencies
+#        run: npm install
+#
+#      - name: Compile assets
+#        run: npm run build
+#
+#      - name: Run Test suite
+#        run: php artisan test
