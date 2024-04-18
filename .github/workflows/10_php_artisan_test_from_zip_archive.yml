@@ -3,8 +3,8 @@ name: 10_php_artisan_test_from_zip_archive
 on:
   workflow_dispatch:
     inputs:
-      zip_artifact_download_url:
-        description: 'Zip Artifact Download URL'
+      zip_artifact_id:
+        description: 'Zip Artifact ID'
         required: true
 
 jobs:
@@ -24,10 +24,9 @@ jobs:
     steps:
       - name: Echo the input
         run: |
-          echo "${{ github.event.inputs.zip_artifact_download_url }}"
-          curl -o archive.zip "${{ github.event.inputs.zip_artifact_download_url }}"
+          echo "${{ github.event.inputs.zip_artifact_id }}"
+          curl -H "Accept: application/vnd.github+json" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -L -o firmware.zip "https://api.github.com/repos/rcravens/laravel_demo/actions/artifacts/${{ github.event.inputs.zip_artifact_id }}/zip"
           ls -la
-
 
 #      # https://github.com/actions/checkout
 #      - uses: actions/checkout@v4
