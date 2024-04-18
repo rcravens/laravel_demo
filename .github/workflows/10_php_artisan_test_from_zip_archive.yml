@@ -26,8 +26,6 @@ jobs:
         run: |
           echo "${{ github.event.inputs.zip_artifact_download_url }}"
           curl -o archive.zip "${{ github.event.inputs.zip_artifact_download_url }}"
-          unzip archive.zip ./
-          rm -rf archive.zip
           ls -la
 
 
