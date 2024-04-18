@@ -26,7 +26,9 @@ jobs:
         # https://github.com/rcravens/laravel_demo/actions/runs/8728222070/artifacts/1423549891
         run: |
           echo "${{ github.event.inputs.zip_artifact_id }}"
-          curl -H "Accept: application/vnd.github+json" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -L -o firmware.zip "https://api.github.com/repos/rcravens/laravel_demo/actions/artifacts/${{ github.event.inputs.zip_artifact_id }}/zip"
+          curl -H "Accept: application/vnd.github+json" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" -L -o archive.zip "https://api.github.com/repos/rcravens/laravel_demo/actions/artifacts/${{ github.event.inputs.zip_artifact_id }}/zip"
+          ls -la
+          unzip -o archive.zip
           ls -la
 
 #      # https://github.com/actions/checkout
