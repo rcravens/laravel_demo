@@ -26,6 +26,10 @@ jobs:
         with:
           php-version: 8.3
 
+      - name: Install composer dependencies
+        run: |
+          composer install --no-scripts
+
       # https://github.com/marketplace/actions/psalm-static-analysis-for-php
       - name: Psalm
         uses: docker://ghcr.io/psalm/psalm-github-actions
