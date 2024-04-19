@@ -6,7 +6,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      version_str: ${{ steps.create_zip_file.version }}
+      version_str: ${{ steps.create_zip_file.outputs.version }}
 
     steps:
       - uses: actions/checkout@v4
