@@ -36,6 +36,9 @@ jobs:
       - name: Compile assets
         run: npm run build
 
+      - name: Sign the code
+        run: php artisan app:sign-code
+
       - name: Create zip file
         id: create_zip_file
         run: |
