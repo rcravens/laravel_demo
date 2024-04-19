@@ -117,11 +117,12 @@ jobs:
           name: ${{ env.VERSION_STR }}
 
       - name: SCP the archive to the server
-        uses: pierrickdelrieu/scp-action@lastest
+        uses: appleboy/scp-action@v0.1.7
         with:
           host: 54.234.109.36
-          ssh_port: 22
-          ssh_username: demo_1
-          ssh_key: ${{ secrets.PRIVATE_KEY }}
-          destination_dir: /home/demo_1/deployments/test
-          rm: false
+          username: demo_1
+          key: ${{ secrets.PRIVATE_KEY }}
+          port: 22
+          source: "build*.zip"
+          target: /home/demo_1/deployments
+
