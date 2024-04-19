@@ -49,8 +49,14 @@ jobs:
 
       # https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts
       - name: Archive production artifacts
+        id: upload_artifact
         uses: actions/upload-artifact@v4
         with:
           name: ${{ steps.create_zip_file.outputs.version }}
           path: |
             dist
+
+      - name: Kick Off Testing Workflow
+        run: |
+          gh workflow run 10_php_artisan_test_from_zip_archive.yml -f zip_artifact_id=${{ steps.upload_artifact.outputs.artifact-id }}
+
