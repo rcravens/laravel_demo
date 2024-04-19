@@ -138,3 +138,13 @@ jobs:
           source: "build*.zip"
           target: /home/demo_1/deployments
 
+      - name: Deploy the archive
+        uses: appleboy/ssh-action@master
+        with:
+          host: 54.234.109.36
+          port: 22
+          username: demo_1
+          key: ${{secrets.PRIVATE_KEY}}
+          script: "/usr/local/bin/devops/deploy/deploy.sh"
+
+
