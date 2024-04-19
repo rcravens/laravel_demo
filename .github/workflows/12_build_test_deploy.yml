@@ -69,11 +69,9 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ${{ env.VERSION_STR }}
-          path: dist
 
       - name: Unzip the archive
         run: |
-          cd dist
           unzip -q build*.zip
           ls -la
           rm -rf build*.zip
