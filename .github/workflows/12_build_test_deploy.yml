@@ -61,14 +61,14 @@ jobs:
   test:
     runs-on: ubuntu-latest
     needs: [ build ]
+    env:
+      VERSION_STR: ${{needs.build.outputs.version_str}}
     steps:
-      - env:
-          VERSION_STR: ${{needs.build.outputs.version_str}}
 
       - name: Download archive
         uses: actions/download-artifact@v4
         with:
-          name: ${{ steps.create_zip_file.outputs.version }}
+          name: ${{ env.VERSION_STR }}
           path: dist
 
       - name: Test
@@ -78,8 +78,8 @@ jobs:
           cd dist
           pwd
           ls -la
-          echo ${{ VERSION_STR }}
-          cd ${{ VERSION_STR }}
+          echo ${{ env.VERSION_STR }}
+          cd ${{ env.VERSION_STR }}
           pwd
           ls -la
 
