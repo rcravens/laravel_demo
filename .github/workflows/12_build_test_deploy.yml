@@ -77,7 +77,10 @@ jobs:
 
     env:
       VERSION_STR: ${{needs.build.outputs.version_str}}
+
     steps:
+      - name: Show version string
+        run: echo ${{ env.VERSION_STR }}
 
       - name: Download archive
         uses: actions/download-artifact@v4
@@ -107,12 +110,14 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: [ test ]
+    needs: [ build, test ]
 
     env:
       VERSION_STR: ${{needs.build.outputs.version_str}}
 
     steps:
+      - name: Show version string
+        run: echo ${{ env.VERSION_STR }}
 
       - name: Download archive
         uses: actions/download-artifact@v4
