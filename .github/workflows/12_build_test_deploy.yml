@@ -119,6 +119,10 @@ jobs:
         with:
           name: ${{ env.VERSION_STR }}
 
+      - name: Ensure Download Exists
+        run: |
+          ls -la
+
       - name: SCP the archive to the server
         uses: appleboy/scp-action@v0.1.7
         with:
