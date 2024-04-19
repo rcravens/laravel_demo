@@ -56,15 +56,8 @@ jobs:
           path: |
             dist
 
-      - name: Generate a token
-        id: generate_token
-        uses: actions/create-github-app-token@v1
-        with:
-          app-id: ${{ secrets.APP_ID }}
-          private-key: ${{ secrets.APP_PRIVATE_KEY }}
-
       - name: Kick Off Testing Workflow
         run: |
           gh workflow run 10_php_artisan_test_from_zip_archive.yml -f zip_artifact_id=${{ steps.upload_artifact.outputs.artifact-id }}
         env:
-          GH_TOKEN: ${{ steps.generate_token.outputs.token }}
+          GH_TOKEN: ${{ secrets.API_TOKEN }}
