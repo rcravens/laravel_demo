@@ -71,4 +71,6 @@ jobs:
           ls -la
           cd dist
           ls -la
+          cd ${{ steps.create_zip_file.outputs.version }}
+          ls -la
 
