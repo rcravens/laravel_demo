@@ -102,4 +102,33 @@ jobs:
       - name: Run Test suite
         run: php artisan test
 
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [ test ]
 
+    env:
+      VERSION_STR: ${{needs.build.outputs.version_str}}
+
+    steps:
+
+      - name: Download archive
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.VERSION_STR }}
+
+      - name: SCP the archive to the server
+        uses: easingthemes/ssh-deploy@v2.1.4
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.PRIVATE_KEY }}
+          ARGS: "-rlgoDzvc -i --delete"
+          SOURCE: "build*.zip"
+          REMOTE_HOST: 54.234.109.36
+          REMOTE_USER: demo_1
+          TARGET: "/home/demo_1/deployments/"
+          SCRIPT_BEFORE: |
+            whoami
+            ls -al
+          SCRIPT_AFTER: |
+            whoami
+            ls -al
+            echo $RSYNC_STDOUT
