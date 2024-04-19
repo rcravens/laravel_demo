@@ -55,9 +55,3 @@ jobs:
           name: ${{ steps.create_zip_file.outputs.version }}
           path: |
             dist
-
-      - name: Kick Off Testing Workflow
-        run: |
-          gh workflow run 10_php_artisan_test_from_zip_archive.yml -f zip_artifact_id=${{ steps.upload_artifact.outputs.artifact-id }}
-        env:
-          GH_TOKEN: ${{ secrets.API_TOKEN }}
