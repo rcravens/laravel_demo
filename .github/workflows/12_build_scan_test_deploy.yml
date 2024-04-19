@@ -4,6 +4,7 @@ on:
 
 jobs:
   build:
+    name: build and sign code
     runs-on: ubuntu-latest
     outputs:
       version_str: ${{ steps.create_zip_file.outputs.version }}
@@ -61,7 +62,7 @@ jobs:
           path: |
             dist
   scan:
-    name: Run PHPMD scanning
+    name: scan using phpmd
     runs-on: ubuntu-latest
     needs: [ build ]
     permissions:
