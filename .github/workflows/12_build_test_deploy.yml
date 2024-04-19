@@ -30,7 +30,9 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: 8.3
-
+          coverage: none
+          tools: phpmd
+          
       - name: Install composer dependencies
         run: |
           composer install --no-scripts
@@ -113,8 +115,6 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: 8.3
-          coverage: none
-          tools: phpmd
 
       - name: Prepare Laravel Application
         run: |
