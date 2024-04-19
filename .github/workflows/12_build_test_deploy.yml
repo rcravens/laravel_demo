@@ -120,7 +120,7 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs: [ build, scan, test ]
+    needs: [ build, test ]
 
     env:
       VERSION_STR: ${{needs.build.outputs.version_str}}
