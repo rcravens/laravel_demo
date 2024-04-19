@@ -68,9 +68,13 @@ jobs:
 
       - name: Test
         run: |
+          pwd
           ls -la
           cd dist
+          pwd
           ls -la
+          echo ${{ steps.create_zip_file.outputs.version }}
           cd ${{ steps.create_zip_file.outputs.version }}
+          pwd
           ls -la
 
