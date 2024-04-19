@@ -2,6 +2,9 @@ name: 12_build_test_deploy
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   build:
     name: checkout, build, sign, scan, and archive code
@@ -18,6 +21,22 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          coverage: none
+          tools: phpmd
+
+      - name: Run PHPMD
+        run: phpmd . sarif codesize --reportfile phpmd-results.sarif
+        continue-on-error: true
+
+      - name: Upload analysis results to GitHub
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: phpmd-results.sarif
+
       - name: Cache composer dependencies
         uses: actions/cache@v4
         with:
@@ -26,13 +45,6 @@ jobs:
           restore-keys: |
             composer-
 
-      - name: Install PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 8.3
-          coverage: none
-          tools: phpmd
-          
       - name: Install composer dependencies
         run: |
           composer install --no-scripts
@@ -45,15 +57,6 @@ jobs:
 
       - name: Sign the code
         run: php artisan app:sign-code
-
-      - name: Run PHPMD
-        run: phpmd . sarif codesize --reportfile phpmd-results.sarif
-        continue-on-error: true
-
-      - name: Upload analysis results to GitHub
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: phpmd-results.sarif
 
       - name: Create zip file
         id: create_zip_file
