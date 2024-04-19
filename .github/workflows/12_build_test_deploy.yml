@@ -71,15 +71,26 @@ jobs:
           name: ${{ env.VERSION_STR }}
           path: dist
 
-      - name: Test
+      - name: Unzip the archive
         run: |
-          pwd
-          ls -la
           cd dist
-          pwd
+          unzip -q build*.zip
           ls -la
-          echo ${{ env.VERSION_STR }}
-          cd ${{ env.VERSION_STR }}
-          pwd
-          ls -la
+          rm -rf build*.zip
+
+      # https://github.com/shivammathur/setup-php
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+
+      - name: Prepare Laravel Application
+        run: |
+          cp .env.ci .env
+          php artisan key:generate
+          php artisan migrate
+
+      - name: Run Test suite
+        run: php artisan test
+
 
