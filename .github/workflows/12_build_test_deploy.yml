@@ -4,7 +4,7 @@ on:
 
 jobs:
   build:
-    name: build and sign code
+    name: checkout, build, sign, scan, and archive code
     runs-on: ubuntu-latest
     outputs:
       version_str: ${{ steps.create_zip_file.outputs.version }}
@@ -72,6 +72,7 @@ jobs:
             dist
 
   test:
+    name: download, unpack, setup test env, run tests
     runs-on: ubuntu-latest
     needs: [ build ]
 
@@ -119,6 +120,7 @@ jobs:
         run: php artisan test
 
   deploy:
+    name: download, scp, deploy
     runs-on: ubuntu-latest
     needs: [ build, test ]
 
