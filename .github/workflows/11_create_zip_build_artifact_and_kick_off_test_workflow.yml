@@ -1,0 +1,64 @@
+name: 09_create_zip_build_artifact_and_kick_off_test_workflow
+on:
+  workflow_dispatch:
+
+jobs:
+  test_and_create_zip:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            composer-
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+
+      - name: Install composer dependencies
+        run: |
+          composer install --no-scripts
+
+      - name: Install NPM dependencies
+        run: npm install
+
+      - name: Compile assets
+        run: npm run build
+
+      - name: Create zip file
+        id: create_zip_file
+        run: |
+          date_string=$(date +"%Y-%m-%d-%H-%M-%S")
+          git_short_sha=${GITHUB_SHA::7}
+          version="$date_string-$git_short_sha"
+          zip_file_name="build-$version.zip"
+          echo "version=$version" >> $GITHUB_OUTPUT
+          echo "zip_file_name=$zip_file_name" >> $GITHUB_OUTPUT
+          echo $version
+          mkdir -p dist
+          zip -9 -rq dist/$zip_file_name . -x \*.git\* -x \*.github\* -x public/app/mocks\* -x bin/template_creator/*.tar -x node_modules/laravel-elixir\*
+
+      # https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts
+      - name: Archive production artifacts
+        id: upload_artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.create_zip_file.outputs.version }}
+          path: |
+            dist
+
+      - name: Kick Off Testing Workflow
+        run: |
+          gh workflow run 10_php_artisan_test_from_zip_archive.yml -f zip_artifact_id=${{ steps.upload_artifact.outputs.artifact-id }}
+        env:
+          # Need to have a personal token with read/write on actions for the repo
+          GH_TOKEN: ${{ secrets.API_TOKEN }}
