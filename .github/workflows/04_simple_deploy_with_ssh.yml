@@ -6,7 +6,7 @@ jobs:
   deploy:
     name: Deploy to Demo 1
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    # if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
       - name: Configure SSH
         run: |
