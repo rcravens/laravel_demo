@@ -1,6 +1,8 @@
 name: 12_build_test_deploy
-on:
-  workflow_dispatch:
+
+on: [ push, pull_request ]
+#on:
+#  workflow_dispatch:
 
 permissions:
   contents: read
