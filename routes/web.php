@@ -11,7 +11,7 @@ Route::get( '/', function () {
 
     $integrity_checker = new IntegrityChecker( realpath( app_path() . '/..' ) );
 
-    $integrity_checker->verify( true );
+    $integrity_checker->verify( false );
 
     $is_integrity_okay = $integrity_checker->isOkay();
 
