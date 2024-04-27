@@ -15,8 +15,36 @@ Route::get( '/', function () {
 
     $is_integrity_okay = $integrity_checker->isOkay();
 
+    // random db query for places
+    //
+    // random lat / lng ranges for places
+    $random_latitude  = rand( - 90, 90 );
+    $random_longitude = rand( - 180, 180 );
+
+    $sql = <<<SQL
+SELECT
+    *,
+    (
+      6371 * acos (
+      cos ( radians($random_latitude) )
+      * cos( radians( latitude ) )
+      * cos( radians( longitude ) - radians($random_longitude) )
+      + sin ( radians($random_latitude) )
+      * sin( radians( latitude ) )
+    )
+) AS distance_in_km
+FROM places
+ORDER BY distance_in_km
+LIMIT 0, 10;
+SQL;
+
+    $places = DB::select( $sql );
+
     return view( 'welcome', [
-        'is_integrity_okay' => $is_integrity_okay
+        'is_integrity_okay' => $is_integrity_okay,
+        'places'            => $places,
+        'random_latitude'   => $random_latitude,
+        'random_longitude'  => $random_longitude,
     ] );
 } );
 
