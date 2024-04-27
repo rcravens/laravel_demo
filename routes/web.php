@@ -17,11 +17,15 @@ Route::get( '/', function () {
 
     // random db query for places
     //
-    // random lat / lng ranges for places
-    $random_latitude  = rand( - 90, 90 );
-    $random_longitude = rand( - 180, 180 );
+    $num_queries = request()->get( 'num_queries', 1 );
+    $places      = [];
+    foreach ( range( 1, $num_queries ) as $i )
+    {
+        // random lat / lng ranges for places
+        $random_latitude  = rand( - 90, 90 );
+        $random_longitude = rand( - 180, 180 );
 
-    $sql = <<<SQL
+        $sql = <<<SQL
 SELECT
     *,
     (
@@ -38,7 +42,8 @@ ORDER BY distance_in_km
 LIMIT 0, 10;
 SQL;
 
-    $places = DB::select( $sql );
+        $places = DB::select( $sql );
+    }
 
     return view( 'welcome', [
         'is_integrity_okay' => $is_integrity_okay,
