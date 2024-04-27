@@ -2,6 +2,8 @@
 
 use App\Demo\Utilities\IntegrityChecker;
 use App\Http\Controllers\ProfileController;
+use App\Jobs\TestJob;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +16,27 @@ Route::get( '/', function () {
     $integrity_checker->verify( false );
 
     $is_integrity_okay = $integrity_checker->isOkay();
+
+    // Cache testing
+    //
+    $cache_key      = 'testing_1234567890';
+    $num_cache_hits = request()->get( 'cache_hits', 0 );
+    for ( $i = 0; $i < $num_cache_hits; $i ++ )
+    {
+        $value = \Illuminate\Support\Str::random( 1000 );
+        Cache::put( $cache_key, $value, 60 );
+        $value = Cache::get( $cache_key );
+    }
+
+    // Job testing
+    //
+    $num_jobs = request()->get( 'num_jobs', 0 );
+    for ( $i = 0; $i < $num_jobs; $i ++ )
+    {
+        $job = new TestJob();
+        dispatch( $job );
+    }
+
 
     // random db query for places
     //
