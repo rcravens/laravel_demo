@@ -11,6 +11,8 @@ Route::get( '/', function () {
 
     Log::info( 'Running integrity checker' );
 
+    // Integrity checker
+    //
     $integrity_checker = new IntegrityChecker( realpath( app_path() . '/..' ) );
 
     $integrity_checker->verify( false );

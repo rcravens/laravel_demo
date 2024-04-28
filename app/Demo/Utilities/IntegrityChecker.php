@@ -6,6 +6,8 @@ use Carbon\Carbon;
 
 class IntegrityChecker
 {
+    private const CACHE_TIME_IN_MINUTES = 10;
+
     private $directory;
     private $hash_data_file;
     private $hash_input_file;
@@ -66,7 +68,7 @@ class IntegrityChecker
             $last_modified_at                = Carbon::parse( $last_modified_ts );
             $now                             = Carbon::now();
             $num_minutes_since_last_verified = $last_modified_at->diffInMinutes( $now );
-            if ( $num_minutes_since_last_verified > 10 )
+            if ( $num_minutes_since_last_verified > self::CACHE_TIME_IN_MINUTES )
             {
                 $is_reverification_needed = true;
             }
