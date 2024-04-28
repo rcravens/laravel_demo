@@ -19,10 +19,10 @@ Route::get( '/', function () {
 
     $is_integrity_okay = $integrity_checker->isOkay();
 
-    // Cache testing
+    // Cache (redis) load testing
     //
     $cache_key      = 'testing_1234567890';
-    $num_cache_hits = request()->get( 'cache_hits', 0 );
+    $num_cache_hits = request()->get( 'cache', 0 );
     for ( $i = 0; $i < $num_cache_hits; $i ++ )
     {
         $value = \Illuminate\Support\Str::random( 1000 );
@@ -30,19 +30,18 @@ Route::get( '/', function () {
         $value = Cache::get( $cache_key );
     }
 
-    // Job testing
+    // Job (supervisor) load testing
     //
-    $num_jobs = request()->get( 'num_jobs', 0 );
+    $num_jobs = request()->get( 'job', 0 );
     for ( $i = 0; $i < $num_jobs; $i ++ )
     {
         $job = new TestJob();
         dispatch( $job );
     }
 
-
-    // random db query for places
+    // DB (mysql) load testing
     //
-    $num_queries = request()->get( 'num_queries', 1 );
+    $num_queries = request()->get( 'db', 1 );
     $places      = [];
     foreach ( range( 1, $num_queries ) as $i )
     {
@@ -64,11 +63,11 @@ SELECT
 ) AS distance_in_km
 FROM places
 ORDER BY distance_in_km
-LIMIT 0, 10;
 SQL;
 
         $places = DB::select( $sql );
     }
+    $places = collect( $places )->take( 10 );
 
     return view( 'welcome', [
         'is_integrity_okay' => $is_integrity_okay,
