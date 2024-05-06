@@ -156,7 +156,7 @@ jobs:
       - name: SCP the archive to the server
         uses: appleboy/scp-action@v0.1.7
         with:
-          host: ${{vars.HOST}}
+          host: 18.208.211.221
           username: demo_1
           key: ${{ secrets.PRIVATE_KEY }}
           port: 22
@@ -166,7 +166,7 @@ jobs:
       - name: Deploy the archive
         uses: appleboy/ssh-action@master
         with:
-          host: ${{vars.HOST}}
+          host: 18.208.211.221
           port: 22
           username: demo_1
           key: ${{secrets.PRIVATE_KEY}}
