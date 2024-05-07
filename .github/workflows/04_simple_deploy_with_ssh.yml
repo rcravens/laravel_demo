@@ -15,7 +15,7 @@ jobs:
           chmod 600 ~/.ssh/demo_1.key
           cat >>~/.ssh/config <<END
             Host demo_1
-            HostName ${{var.HOST}}
+            HostName ${{ secrets.HOST }}
             User demo_1
             IdentityFile ~/.ssh/demo_1.key
             StrictHostKeyChecking no
