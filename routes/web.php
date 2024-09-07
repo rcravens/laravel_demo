@@ -34,7 +34,7 @@ Route::get( '/', function () {
     //
     $ip_address = request()->ip();
     $host_name = request()->server( 'HOSTNAME' );
-    $name = $host_name . ' : ' . $ip_address;
+    $name = $host_name;
 
     $cache_key = 'ip_addresses_98765';
     $cached_ip_addresses = Cache::get( $cache_key, [] );
