@@ -30,6 +30,28 @@ Route::get( '/', function () {
         $value = Cache::get( $cache_key );
     }
 
+    // Cache (redis) IP address
+    //
+    $ip_address = request()->ip();
+    $host_name = request()->server( 'HOSTNAME' );
+    $name = $host_name . ' : ' . $ip_address;
+
+    $cache_key = 'ip_addresses_98765';
+    $cached_ip_addresses = Cache::get( $cache_key, [] );
+    if(request()->has('clear_cache'))
+    {
+        $cached_ip_addresses = [];
+        Cache::put( $cache_key, $cached_ip_addresses, 600 );
+        return back();
+    }
+    if(! array_key_exists( $name, $cached_ip_addresses ) )
+    {
+        $cached_ip_addresses[$name] = 0;
+    }
+    $cached_ip_addresses[$name] ++;
+    Cache::put( $cache_key, $cached_ip_addresses, 600 );
+//dd($_SERVER);
+
     // Job (supervisor) load testing
     //
     $num_jobs = request()->get( 'job', 0 );
@@ -74,6 +96,7 @@ SQL;
         'places'            => $places,
         'random_latitude'   => $random_latitude,
         'random_longitude'  => $random_longitude,
+        'cached_ip_addresses' => $cached_ip_addresses,
     ] );
 } );
 

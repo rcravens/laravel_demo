@@ -17,7 +17,7 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-
+/supervisord.pid
 
 
 hash
